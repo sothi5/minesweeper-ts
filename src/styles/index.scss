@@ -8,3 +8,14 @@
         top-color: $left-top;
     }
 }
+
+@mixin buttons {
+    &:active {
+        border: {
+            right-color: #FFF;
+            bottom-color:#FFF;
+            left-color: #7b7b7b;
+            top-color: #7b7b7b;
+        }
+    }
+}

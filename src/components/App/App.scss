@@ -33,7 +33,8 @@
     height: 52px;
     font-size: 35px;
 
-    @include borders();
+    @include borders;
+    @include buttons;
 
     display: flex;
     justify-content: center;
