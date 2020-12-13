@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 
 import Button from "../Button";
 import NumberDisplay from '../NumberDisplay';
-import { generateCells } from "../../utils";
-import { Cell, CellState, Face } from "../../types";
+import { generateCells, openMultipleCells } from "../../utils";
+import { Cell, CellState, CellValue, Face } from "../../types";
 
 import './App.scss';
 
@@ -48,6 +48,22 @@ const App: React.FC = () => {
 
         // start the game
         (!live) && setLive(true);
+
+        const currentCell = cells[rowParam][colParam];
+        let newCells = cells.slice();
+
+        // if (currentCell.state === CellState.flagged || currentCell.state === CellState.visible) return;
+        if ([CellState.flagged,  CellState.visible].includes(currentCell.state)) return;
+
+        if (currentCell.value === CellValue.bomb) {
+            // TODO
+        } else if (currentCell.value === CellValue.none) {
+            newCells = openMultipleCells(newCells, rowParam, colParam);
+            setCells(newCells);
+        } else {
+            newCells[rowParam][colParam].state = CellState.visible;
+            setCells(newCells);
+        }
     }
 
     const handleCellContext = (rowParam: number, colParam: number) => (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
